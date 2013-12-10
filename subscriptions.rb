@@ -11,8 +11,11 @@ module Subscriptions
   end
 
   def notify(channel, data)
-    subscriptions[channel].each do |connection|
-      connection.send_to_client data.to_json
+    return unless (connections = subscriptions[channel]).any?
+
+    connections.each do |connection|
+      message = Message.new(event: 'event', data: data)
+      connection.send_message(message)
     end
   end
 

@@ -20,8 +20,7 @@ class Server < Goliath::API
       end
 
       socket.on :message do |event|
-        message = Message.new(event.data)
-        connection.respond_to_message(message)
+        connection.handle_incomming_data(event.data)
       end
 
       socket.on :close do |event|
@@ -33,10 +32,9 @@ class Server < Goliath::API
 
     else
       # Normal HTTP request
-      Subscriptions.notify 'channel-142', {test: 'data'}
+      Subscriptions.notify 'channel-1', {test: 'data'}
 
       [200, {'Content-Type' => 'text/plain'}, ['Hello normal http!']]
     end
   end
-
 end
