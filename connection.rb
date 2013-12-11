@@ -1,5 +1,3 @@
-require './response_builder'
-
 class Connection
 
   attr_reader :socket_id
