@@ -14,10 +14,10 @@ class Connection
   def handle_incomming_data(data)
     message = Message.new(data)
     case message.event
-      when /pusher:/
-        handle_pusher_message(message)
-      when /client:/
-        handle_client_message(message)
+    when /pusher:/
+      handle_pusher_message(message)
+    when /client:/
+      handle_client_message(message)
     end
   end
 
