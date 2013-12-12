@@ -16,7 +16,7 @@ class Message
   end
 
   def self.connection_established(socket_id)
-    new(event: 'pusher:connection_established', data: {socket_id: socket_id})
+    new(event: 'pusher:connection_established', data: { socket_id: socket_id })
   end
 
   def self.subscription_succeeded(channel)
@@ -28,6 +28,6 @@ class Message
   end
 
   def self.error(code, message)
-    new(event: 'pusher:error', data: {code: code, message: message})
+    new(event: 'pusher:error', data: { code: code, message: message })
   end
 end
