@@ -21,7 +21,7 @@ class Connection
     end
   end
 
-  def send_error(code, message)
+  def error(code, message)
     send_message Message.error(code, message)
   end
 
@@ -54,8 +54,12 @@ class Connection
 
   def pusher_subscribe(data)
     channel = data['channel']
+
     Subscriptions.add(channel, self)
     send_message Message.subscription_succeeded(channel)
+
+  rescue Subscriptions::SubscriptionError => e
+    error(nil, e.message)
   end
 
   def pusher_unsubscribe(data)

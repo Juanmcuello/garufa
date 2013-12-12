@@ -6,23 +6,30 @@ module Subscriptions
   end
 
   def add(channel, connection)
-    subscriptions[channel] ||= []
+    if subscriptions[channel].include? connection
+      raise SubscriptionError.new(channel)
+    end
     subscriptions[channel] << connection
   end
 
-  def notify(channel, data)
+  def notify(channel, event, data)
     return unless (connections = subscriptions[channel]).any?
 
     connections.each do |connection|
-      message = Message.new(event: 'event', data: data)
-      connection.send_message(message)
+      connection.send_message(Message.new(event: event, data: data))
+    end
+  end
+
+  class SubscriptionError < StandardError
+    def initialize(channel)
+      super "Already subscribed to channel: #{channel}"
     end
   end
 
   private
 
   def subscriptions
-    @subscriptions ||= {}
+    @subscriptions ||= Hash.new []
   end
 end
 
