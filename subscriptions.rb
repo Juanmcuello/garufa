@@ -12,11 +12,14 @@ module Subscriptions
     subscriptions[channel] << connection
   end
 
-  def notify(channel, event, data)
-    return unless (connections = subscriptions[channel]).any?
+  def notify(channels, event, data, options = {})
+    channels.each do |channel|
+      next unless (connections = subscriptions[channel]).any?
 
-    connections.each do |connection|
-      connection.send_message(Message.new(event: event, data: data))
+      connections.each do |connection|
+        next if connection.socket_id == options[:socket_id]
+        connection.send_message(Message.new(event: event, data: data))
+      end
     end
   end
 
