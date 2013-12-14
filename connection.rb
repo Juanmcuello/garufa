@@ -12,7 +12,7 @@ class Connection
   end
 
   def handle_incomming_data(data)
-    message = Message.new(data)
+    message = Message.new(JSON.parse(data))
     case message.event
     when /pusher:/
       handle_pusher_message(message)

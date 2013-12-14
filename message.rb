@@ -2,8 +2,12 @@ require 'json'
 
 class Message
 
-  def initialize(attr)
-    @attributes = attr.is_a?(String) ? JSON.parse(attr) : attr
+  ATTRIBUTES = [:channels, :event, :data, :name, :socket_id]
+
+  def initialize(attributes)
+    @attributes = ATTRIBUTES.each_with_object({}) do |key, hash|
+      hash[key] = attributes[key] || attributes[key.to_s]
+    end
 
     @attributes.each do |name, value|
       instance_variable_set("@#{name}", value)
@@ -12,7 +16,7 @@ class Message
   end
 
   def to_json
-    @attributes.to_json
+    @attributes.delete_if { |k, v| v.nil? }.to_json
   end
 
   def self.connection_established(socket_id)
