@@ -1,9 +1,12 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
 require 'goliath/runner'
 require './garufa'
 
 runner = Goliath::Runner.new(ARGV, Garufa.new)
 runner.app = Goliath::Rack::Builder.build(Garufa, runner.api)
+
+runner.log_file ||= './garufa.log'
+runner.pid_file ||= './garufa.pid'
+
 runner.run
