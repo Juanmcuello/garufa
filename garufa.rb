@@ -1,6 +1,5 @@
 require 'goliath/api'
 require 'faye/websocket'
-require 'faye/websocket/api/event_target'
 
 require './ws_server'
 require './api_server'
