@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'goliath/runner'
+require './garufa'
+
+runner = Goliath::Runner.new(ARGV, Garufa.new)
+runner.app = Goliath::Rack::Builder.build(Garufa, runner.api)
+runner.run
