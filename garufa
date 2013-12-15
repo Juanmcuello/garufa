@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
 require 'goliath/runner'
-require './garufa'
+require './garufa_app'
 
-runner = Goliath::Runner.new(ARGV, Garufa.new)
-runner.app = Goliath::Rack::Builder.build(Garufa, runner.api)
+runner = Goliath::Runner.new(ARGV, GarufaApp.new)
+runner.app = Goliath::Rack::Builder.build(GarufaApp, runner.api)
 
 runner.log_file ||= './garufa.log'
 runner.pid_file ||= './garufa.pid'
