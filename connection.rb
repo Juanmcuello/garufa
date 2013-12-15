@@ -1,3 +1,5 @@
+require 'uri'
+
 module Garufa
   class Connection
 
@@ -5,11 +7,16 @@ module Garufa
 
     def initialize(socket)
       @socket = socket
+      @socket_id = SecureRandom.uuid
     end
 
     def establish
-      @socket_id = SecureRandom.uuid
-      send_message Message.connection_established(@socket_id)
+      if valid_app_key?
+        send_message Message.connection_established(@socket_id)
+      else
+        error(nil, "Invalid application key: #{app_key}")
+        close
+      end
     end
 
     def handle_incomming_data(data)
@@ -64,6 +71,14 @@ module Garufa
     end
 
     def pusher_unsubscribe(data)
+    end
+
+    def valid_app_key?
+      app_key && (app_key == Config[:app_key])
+    end
+
+    def app_key
+      @app_key ||= URI.parse(@socket.url).path.split('/').last
     end
   end
 end
