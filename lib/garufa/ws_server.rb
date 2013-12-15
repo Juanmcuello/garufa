@@ -1,6 +1,4 @@
-require './connection'
-require './message'
-require './subscriptions'
+require 'garufa/connection'
 
 module Garufa
   WsServer = lambda do |env|

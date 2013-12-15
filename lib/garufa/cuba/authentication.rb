@@ -1,4 +1,5 @@
 require 'signature'
+require 'garufa/config'
 
 class Cuba
   module Authentication

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'goliath/runner'
-require './garufa_app'
+require 'garufa'
 
 module Garufa
   runner = Goliath::Runner.new(ARGV, GarufaApp.new)

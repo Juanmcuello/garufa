@@ -1,6 +1,7 @@
 require 'cuba'
-require './authentication'
-require './subscriptions'
+require 'garufa/cuba/authentication'
+require 'garufa/message'
+require 'garufa/subscriptions'
 
 module Garufa
   Cuba.plugin Cuba::Authentication

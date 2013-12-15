@@ -1,9 +1,8 @@
 require 'goliath/api'
 require 'faye/websocket'
-
-require './config'
-require './ws_server'
-require './api_server'
+require 'garufa/config'
+require 'garufa/ws_server'
+require 'garufa/api_server'
 
 module Garufa
   Faye::WebSocket.load_adapter('goliath')
