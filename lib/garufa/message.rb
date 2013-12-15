@@ -3,7 +3,7 @@ require 'json'
 module Garufa
   class Message
 
-    ATTRIBUTES = [:channels, :event, :data, :name, :socket_id]
+    ATTRIBUTES = [:channels, :channel, :event, :data, :name, :socket_id]
 
     def initialize(attributes)
       @attributes = ATTRIBUTES.each_with_object({}) do |key, hash|

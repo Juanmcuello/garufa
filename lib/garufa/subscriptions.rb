@@ -19,7 +19,7 @@ module Garufa
 
         connections.each do |connection|
           next if connection.socket_id == options[:socket_id]
-          connection.send_message(Message.new(event: event, data: data))
+          connection.send_message(Message.new(event: event, data: data, channel: channel))
         end
       end
     end
