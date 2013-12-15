@@ -6,7 +6,9 @@ require './garufa_app'
 runner = Goliath::Runner.new(ARGV, GarufaApp.new)
 runner.app = Goliath::Rack::Builder.build(GarufaApp, runner.api)
 
-runner.log_file ||= './garufa.log'
-runner.pid_file ||= './garufa.pid'
+if runner.daemonize
+  runner.log_file ||= './garufa.log'
+  runner.pid_file ||= './garufa.pid'
+end
 
 runner.run
