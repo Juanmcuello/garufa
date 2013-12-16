@@ -14,7 +14,7 @@ module Garufa
       if valid_app_key?
         send_message Message.connection_established(@socket_id)
       else
-        error(nil, "Invalid application key: #{app_key}")
+        error(4001, "Could not find app by key #{app_key}")
         close
       end
     end
