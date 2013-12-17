@@ -21,7 +21,8 @@ module Garufa
     end
 
     def self.connection_established(socket_id)
-      new(event: 'pusher:connection_established', data: { socket_id: socket_id })
+      data = { socket_id: socket_id }.to_json
+      new(event: 'pusher:connection_established', data: data)
     end
 
     def self.subscription_succeeded(channel)
@@ -33,7 +34,8 @@ module Garufa
     end
 
     def self.error(code, message)
-      new(event: 'pusher:error', data: { code: code, message: message })
+      data = { code: code, message: message }.to_json
+      new(event: 'pusher:error', data: data)
     end
   end
 end
