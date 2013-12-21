@@ -1,4 +1,5 @@
 require 'goliath/api'
+require 'goliath/connection'
 require 'faye/websocket'
 require 'garufa/config'
 require 'garufa/ws_server'
@@ -13,8 +14,14 @@ module Garufa
     def options_parser(opts, options)
       opts.separator ""
       opts.separator "Pusher options:"
-      opts.on('--app_key APP_KEY', "Pusher application key (required)") { |value| Garufa::Config[:app_key] = value }
-      opts.on('--secret SECRET', "Pusher application secret (required)") { |value| Garufa::Config[:secret] = value }
+
+      new_options = {
+        app_key: ['--app_key APP_KEY', 'Pusher application key (required)'],
+        secret:  ['--secret SECRET',   'Pusher application secret (required)']
+      }
+      new_options.each do |k, v|
+        opts.on(v.first, v.last) { |value| Garufa::Config[k] = value }
+      end
     end
 
     def response(env)

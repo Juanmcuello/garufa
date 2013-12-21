@@ -7,26 +7,27 @@ module Garufa
     end
 
     def add(channel, connection)
-      if subscriptions[channel].include? connection
-        raise SubscriptionError.new(channel)
+      subscription = Subscription.new(channel, connection)
+
+      if subscriptions[channel].include? subscription
+        subscription.error(4001, "Already subscribed to channel: #{channel}")
+      else
+        subscriptions[channel] << subscription
       end
-      subscriptions[channel] << connection
+      subscription
     end
 
-    def notify(channels, event, data, options = {})
+    def notify(channels, event, options = {})
       channels.each do |channel|
-        next unless (connections = subscriptions[channel]).any?
+        connections = subscriptions[channel].map { |s| s.connection }
+        next unless connections.any?
 
         connections.each do |connection|
           next if connection.socket_id == options[:socket_id]
-          connection.send_message(Message.new(event: event, data: data, channel: channel))
-        end
-      end
-    end
 
-    class SubscriptionError < StandardError
-      def initialize(channel)
-        super "Already subscribed to channel: #{channel}"
+          attributes = { event: event, data: options[:data], channel: channel }
+          connection.send_message(Message.new(attributes))
+        end
       end
     end
 
@@ -35,5 +36,42 @@ module Garufa
     def subscriptions
       @subscriptions ||= Hash.new []
     end
+  end
+
+  class Subscription
+    attr_reader :channel, :connection, :error
+
+    def initialize(channel, connection)
+      @channel, @connection = channel, connection
+    end
+
+    def error(code, message)
+      error = SubscriptionError.new(code, message)
+    end
+
+    def public?
+      !(self.private? || self.presence?)
+    end
+
+    def private?
+      @channel_prefix == 'private'
+    end
+
+    def presence?
+      @channel_prefix == 'presence'
+    end
+
+    def valid?
+      @error.nil?
+    end
+
+    private
+
+    def channel_prefix
+      @channel_prefix ||= @channel.partition('-').first
+    end
+  end
+
+  class SubscriptionError < Struct.new(:code, :message)
   end
 end

@@ -61,13 +61,13 @@ module Garufa
     end
 
     def pusher_subscribe(data)
-      channel = data['channel']
+      subscription = Subscriptions.add(data['channel'], self)
 
-      Subscriptions.add(channel, self)
-      send_message Message.subscription_succeeded(channel)
-
-    rescue Subscriptions::SubscriptionError => e
-      error(nil, e.message)
+      if subscription.valid?
+        send_subscription_succeeded(subscription) unless subscription.public?
+      else
+        error(subscription.error.code, subscription.error.message)
+      end
     end
 
     def pusher_unsubscribe(data)
@@ -79,6 +79,10 @@ module Garufa
 
     def app_key
       @app_key ||= URI.parse(@socket.url).path.split('/').last
+    end
+
+    def send_subscription_succeeded(subscription)
+      send_message Message.subscription_succeeded(subscription)
     end
   end
 end

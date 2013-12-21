@@ -15,7 +15,8 @@ module Garufa
       # Events
       on post, "events" do
         message = Message.new(JSON.parse(req.body.read))
-        Subscriptions.notify message.channels, message.name, message.data, socket_id: message.socket_id
+        options = { data: message.data, socket_id: message.socket_id }
+        Subscriptions.notify message.channels, message.name, options
         res.write "{}"
       end
 
