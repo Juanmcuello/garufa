@@ -20,8 +20,12 @@ module Garufa
       @attributes.delete_if { |k, v| v.nil? }.to_json
     end
 
+    def self.channel_event(channel, event, data)
+       new(channel: channel, event: event, data: data)
+    end
+
     def self.connection_established(socket_id)
-      data = { socket_id: socket_id }.to_json
+      data = { socket_id: socket_id, activity_timeout: 120 }.to_json
       new(event: 'pusher:connection_established', data: data)
     end
 
