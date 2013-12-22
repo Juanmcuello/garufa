@@ -6,15 +6,8 @@ module Garufa
       subscriptions
     end
 
-    def add(channel, connection)
-      subscription = Subscription.new(channel, connection)
-
-      if subscriptions[channel].include? subscription
-        subscription.error(4001, "Already subscribed to channel: #{channel}")
-      else
-        subscriptions[channel] << subscription
-      end
-      subscription
+    def add(subscription)
+      subscriptions[subscription.channel] << subscription
     end
 
     def notify(channels, event, options = {})
@@ -31,6 +24,10 @@ module Garufa
       end
     end
 
+    def include?(subscription)
+      subscriptions[subscription.channel].include? subscription
+    end
+
     private
 
     def subscriptions
@@ -39,36 +36,65 @@ module Garufa
   end
 
   class Subscription
-    attr_reader :channel, :connection, :error
+    attr_reader :data, :connection, :error
 
-    def initialize(channel, connection)
-      @channel, @connection = channel, connection
+    def initialize(data, connection)
+      @data, @connection = data, connection
+    end
+
+    def subscribe
+      case true
+      when invalid_channel?
+        error(1000, 'invalid channnel or not present')
+      when invalid_signature?
+        error(1000, 'invalid signature')
+      when already_subscribed?
+        error(4001, "Already subscribed to channel: #{channel}")
+      else
+        Subscriptions.add self
+      end
+    end
+
+    def public_channel?
+      !(private_channel? || presence_channel?)
+    end
+
+    def private_channel?
+      channel_prefix == 'private'
+    end
+
+    def presence_channel?
+      channel_prefix == 'presence'
     end
 
     def error(code, message)
       error = SubscriptionError.new(code, message)
     end
 
-    def public?
-      !(self.private? || self.presence?)
-    end
-
-    def private?
-      @channel_prefix == 'private'
-    end
-
-    def presence?
-      @channel_prefix == 'presence'
-    end
-
-    def valid?
+    def success?
       @error.nil?
+    end
+
+    def channel
+      @data['channel']
+    end
+
+    def channel_prefix
+      channel[/^private-|presence-/].to_s[0...-1]
     end
 
     private
 
-    def channel_prefix
-      @channel_prefix ||= @channel.partition('-').first
+    def invalid_channel?
+      !channel.is_a?(String) || channel.empty?
+    end
+
+    def invalid_signature?
+      return false
+    end
+
+    def already_subscribed?
+      Subscriptions.include? self
     end
   end
 

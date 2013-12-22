@@ -61,10 +61,11 @@ module Garufa
     end
 
     def pusher_subscribe(data)
-      subscription = Subscriptions.add(data['channel'], self)
+      subscription = Subscription.new(data, self)
+      subscription.subscribe
 
-      if subscription.valid?
-        send_subscription_succeeded(subscription) unless subscription.public?
+      if subscription.success?
+        send_subscription_succeeded(subscription) unless subscription.public_channel?
       else
         error(subscription.error.code, subscription.error.message)
       end
@@ -82,7 +83,7 @@ module Garufa
     end
 
     def send_subscription_succeeded(subscription)
-      send_message Message.subscription_succeeded(subscription)
+      send_message Message.subscription_succeeded(subscription.channel)
     end
   end
 end
