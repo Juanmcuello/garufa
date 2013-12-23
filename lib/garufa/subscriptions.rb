@@ -45,11 +45,11 @@ module Garufa
     def subscribe
       case true
       when invalid_channel?
-        set_error(1000, 'invalid channnel or not present')
+        set_error(nil, 'Invalid channnel or not present')
       when invalid_signature?
-        set_error(1000, 'invalid signature')
+        set_error(nil, 'Invalid signature')
       when already_subscribed?
-        set_error(4001, "Already subscribed to channel: #{channel}")
+        set_error(nil, "Already subscribed to channel: #{channel}")
       else
         Subscriptions.add self
       end
