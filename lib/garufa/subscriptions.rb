@@ -45,11 +45,11 @@ module Garufa
     def subscribe
       case true
       when invalid_channel?
-        error(1000, 'invalid channnel or not present')
+        set_error(1000, 'invalid channnel or not present')
       when invalid_signature?
-        error(1000, 'invalid signature')
+        set_error(1000, 'invalid signature')
       when already_subscribed?
-        error(4001, "Already subscribed to channel: #{channel}")
+        set_error(4001, "Already subscribed to channel: #{channel}")
       else
         Subscriptions.add self
       end
@@ -67,8 +67,8 @@ module Garufa
       channel_prefix == 'presence'
     end
 
-    def error(code, message)
-      error = SubscriptionError.new(code, message)
+    def set_error(code, message)
+      @error = SubscriptionError.new(code, message)
     end
 
     def success?
@@ -90,7 +90,15 @@ module Garufa
     end
 
     def invalid_signature?
-      return false
+      return false if public_channel?
+
+      string_to_sign = [@connection.socket_id, channel].compact.join(':')
+      token(string_to_sign) != @data["auth"].split(':').last
+    end
+
+    def token(string_to_sign)
+      digest = OpenSSL::Digest::SHA256.new
+      OpenSSL::HMAC.hexdigest(digest, Config[:secret], string_to_sign)
     end
 
     def already_subscribed?
