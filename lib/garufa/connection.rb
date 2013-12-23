@@ -21,11 +21,13 @@ module Garufa
 
     def handle_incomming_data(data)
       message = Message.new(JSON.parse(data))
-      case message.event
-      when /pusher:/
-        handle_pusher_message(message)
-      when /client:/
-        handle_client_message(message)
+      event, data = message.event, message.data
+
+      case event
+      when /^pusher:/
+        handle_pusher_event(event, data)
+      when /^client-/
+        handle_client_event(event, data)
       end
     end
 
@@ -43,13 +45,18 @@ module Garufa
 
     private
 
-    def handle_pusher_message(message)
+    def handle_pusher_event(event, data)
       accepted_events = %w{ping pong subscribe unsubscribe}
-      event_name = message.event.partition(':').last
+      event_name = event.partition(':').last
 
       if accepted_events.include?(event_name)
-        method("pusher_#{event_name}").call message.data
+        method("pusher_#{event_name}").call data
       end
+    end
+
+    def handle_client_event(event, data)
+      # NOTE: not supported yet
+      error(nil, 'Client events are not supported yet')
     end
 
     def pusher_ping(data)
