@@ -5,6 +5,10 @@ require 'garufa/config'
 require 'garufa/ws_server'
 require 'garufa/api_server'
 
+# Remove this require after next release of faye-websocket-ruby.
+# See https://github.com/faye/faye-websocket-ruby/issues/38
+require 'garufa/faye_websocket_patch'
+
 module Garufa
   Faye::WebSocket.load_adapter('goliath')
 
