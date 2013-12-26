@@ -5,8 +5,9 @@ module Garufa
 
     attr_reader :socket_id
 
-    def initialize(socket)
+    def initialize(socket, logger)
       @socket = socket
+      @logger = logger
       @socket_id = SecureRandom.uuid
       @subscriptions = {}
     end
@@ -21,6 +22,8 @@ module Garufa
     end
 
     def handle_incomming_data(data)
+      @logger.debug "Incomming message. #{@socket_id}: #{data}"
+
       message = Message.new(JSON.parse(data))
       event, data = message.event, message.data
 
@@ -37,6 +40,8 @@ module Garufa
     end
 
     def send_message(message)
+      @logger.debug "Outgoing message: #{message.to_json}"
+
       @socket.send message.to_json
     end
 

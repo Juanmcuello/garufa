@@ -3,7 +3,7 @@ require 'garufa/connection'
 module Garufa
   WsServer = lambda do |env|
     socket = Faye::WebSocket.new(env)
-    connection = Connection.new(socket)
+    connection = Connection.new(socket, env.logger)
 
     socket.on :open do |event|
       connection.establish
