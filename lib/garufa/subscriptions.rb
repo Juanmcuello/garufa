@@ -1,3 +1,5 @@
+require 'set'
+
 module Garufa
   module Subscriptions
     extend self
@@ -7,7 +9,11 @@ module Garufa
     end
 
     def add(subscription)
-      subscriptions[subscription.channel] << subscription
+      subscriptions[subscription.channel].add subscription
+    end
+
+    def remove(subscription)
+      subscriptions[subscription.channel].delete subscription
     end
 
     def notify(channels, event, options = {})
@@ -31,7 +37,7 @@ module Garufa
     private
 
     def subscriptions
-      @subscriptions ||= Hash.new []
+      @subscriptions ||= Hash.new(Set.new)
     end
   end
 
@@ -53,6 +59,10 @@ module Garufa
       else
         Subscriptions.add self
       end
+    end
+
+    def unsubscribe
+      Subscriptions.remove self
     end
 
     def public_channel?

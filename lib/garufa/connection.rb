@@ -8,6 +8,7 @@ module Garufa
     def initialize(socket)
       @socket = socket
       @socket_id = SecureRandom.uuid
+      @subscriptions = {}
     end
 
     def establish
@@ -72,6 +73,7 @@ module Garufa
       subscription.subscribe
 
       if subscription.success?
+        @subscriptions[subscription.channel] = subscription
         send_subscription_succeeded(subscription) unless subscription.public_channel?
       else
         error(subscription.error.code, subscription.error.message)
@@ -79,6 +81,8 @@ module Garufa
     end
 
     def pusher_unsubscribe(data)
+      subscription = @subscriptions.delete data["channel"]
+      subscription.unsubscribe if subscription
     end
 
     def valid_app_key?
