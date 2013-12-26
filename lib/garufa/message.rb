@@ -3,6 +3,8 @@ require 'json'
 module Garufa
   class Message
 
+    ACTIVITY_TIMEOUT = 120
+
     ATTRIBUTES = [:channels, :channel, :event, :data, :name, :socket_id]
 
     def initialize(attributes)
@@ -25,7 +27,7 @@ module Garufa
     end
 
     def self.connection_established(socket_id)
-      data = { socket_id: socket_id, activity_timeout: 120 }.to_json
+      data = { socket_id: socket_id, activity_timeout: ACTIVITY_TIMEOUT }.to_json
       new(event: 'pusher:connection_established', data: data)
     end
 
