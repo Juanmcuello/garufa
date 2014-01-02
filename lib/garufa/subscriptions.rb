@@ -17,6 +17,8 @@ module Garufa
     end
 
     def notify(channels, event, options = {})
+      return unless channels.is_a?(Array) && channels.any?
+
       channels.each do |channel|
         connections = subscriptions[channel].map { |s| s.connection }
         next unless connections.any?
