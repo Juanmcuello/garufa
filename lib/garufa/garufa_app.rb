@@ -2,8 +2,8 @@ require 'goliath/api'
 require 'goliath/connection'
 require 'faye/websocket'
 require 'garufa/config'
-require 'garufa/ws_server'
-require 'garufa/api_server'
+require 'garufa/websocket/websocket'
+require 'garufa/api/api'
 
 # Remove this require after next release of faye-websocket-ruby.
 # See https://github.com/faye/faye-websocket-ruby/issues/38
@@ -30,9 +30,9 @@ module Garufa
 
     def response(env)
       if Faye::WebSocket.websocket?(env)
-        WsServer.call(env)
+        WebSocket::Server.call(env)
       else
-        ApiServer.call(env)
+        Api::Server.call(env)
       end
     end
   end
