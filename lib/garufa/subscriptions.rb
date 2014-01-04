@@ -104,8 +104,10 @@ module Garufa
     def invalid_signature?
       return false if public_channel?
 
+      app_key, signature = @data["auth"].split(':')
       string_to_sign = [@connection.socket_id, channel].compact.join(':')
-      token(string_to_sign) != @data["auth"].split(':').last
+
+      app_key != Config[:app_key] || token(string_to_sign) != signature
     end
 
     def token(string_to_sign)
