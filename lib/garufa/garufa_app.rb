@@ -10,12 +10,19 @@ require 'garufa/api/api'
 require 'garufa/faye_websocket_patch'
 
 module Garufa
+
+  # Default port for api and websocket servers
+  DEFAULT_PORT = 8080
+
   Faye::WebSocket.load_adapter('goliath')
 
   class GarufaApp < Goliath::API
 
     # Extend goliath options with our own options.
     def options_parser(opts, options)
+
+      options[:port] = DEFAULT_PORT
+
       opts.separator ""
       opts.separator "Pusher options:"
 

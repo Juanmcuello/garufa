@@ -8,8 +8,8 @@ module Garufa
   runner.app = Goliath::Rack::Builder.build(GarufaApp, runner.api)
 
   if runner.daemonize
-    runner.log_file ||= './garufa.log'
     runner.pid_file ||= './garufa.pid'
+    runner.log_file ||= File.expand_path('garufa.log')
   end
 
   runner.run
