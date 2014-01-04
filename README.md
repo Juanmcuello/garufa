@@ -42,7 +42,7 @@ Create an *index.html* file:
     Pusher.host = 'localhost'
     Pusher.ws_port = 8080
 
-    var appKey = 'my-appication-key'
+    var appKey = 'my-application-key'
     var pusher = new Pusher(appKey)
     var channel = pusher.subscribe('my-channel')
 
