@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency "goliath"
-  s.add_dependency "faye-websocket"
+  s.add_dependency "faye-websocket", '~> 0.7.2'
   s.add_dependency "cuba"
   s.add_dependency "signature"
 end

@@ -5,10 +5,6 @@ require 'garufa/config'
 require 'garufa/websocket/websocket'
 require 'garufa/api/api'
 
-# Remove this require after next release of faye-websocket-ruby.
-# See https://github.com/faye/faye-websocket-ruby/issues/38
-require 'garufa/faye_websocket_patch'
-
 module Garufa
 
   # Default port for api and websocket servers
