@@ -16,6 +16,8 @@ module Garufa
       end
 
       socket.on :close do |event|
+        connection.cleanup
+        connection = nil
         socket = nil
       end
 

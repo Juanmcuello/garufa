@@ -49,6 +49,11 @@ module Garufa
       @socket.close
     end
 
+    def cleanup
+      @subscriptions.values.each(&:unsubscribe)
+      @subscriptions.clear
+    end
+
     private
 
     def handle_pusher_event(event, data)
