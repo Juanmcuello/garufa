@@ -40,7 +40,7 @@ module Garufa
     end
 
     def send_message(message)
-      @logger.debug "Outgoing message: #{@socket_id}: #{message.to_json}"
+      @logger.debug "Outgoing message. #{@socket_id}: #{message.to_json}"
 
       @socket.send message.to_json
     end
