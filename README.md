@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Juanmcuello/garufa.png?branch=master)](https://travis-ci.org/Juanmcuello/garufa)
+
 Garufa
 ====
 
