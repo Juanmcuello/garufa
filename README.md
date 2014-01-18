@@ -3,7 +3,7 @@
 Garufa
 ====
 
-A websocket server compatible with the Pusher protocol.
+An open source server implementation of the [Pusher][pusher] protocol.
 
 **IMPORTANT:** Garufa is currently in alpha version, which means it is not
 production ready, but you are free to use it and test it. Any feedback is
@@ -12,9 +12,9 @@ welcome.
 Intro
 -----
 
-Garufa is a websocket server which implements the [Pusher][pusher] protocol. It
-was built on top of [Goliath][goliath], a high performance non-blocking web
-server and based on [Slanger][slanger], another server compatible with Pusher.
+Garufa is a Ruby websocket server which implements the Pusher protocol. It was
+built on top of [Goliath][goliath], a high performance non-blocking web server,
+and inspired by [Slanger][slanger], another server compatible with Pusher.
 
 [pusher]: http://pusher.com
 [goliath]: https://github.com/postrank-labs/goliath/
