@@ -1,5 +1,6 @@
 require 'goliath/api'
 require 'goliath/connection'
+require 'garufa/goliath/connection'
 require 'faye/websocket'
 require 'garufa/config'
 require 'garufa/websocket/websocket'
