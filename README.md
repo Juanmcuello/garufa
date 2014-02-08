@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Juanmcuello/garufa.png?branch=master)](https://travis-ci.org/Juanmcuello/garufa) [![Code Climate](https://codeclimate.com/repos/52e42144e30ba06bd2023379/badges/14cec382d20f6906c80a/gpa.png)](https://codeclimate.com/repos/52e42144e30ba06bd2023379/feed)
+[![Build Status](https://travis-ci.org/Juanmcuello/garufa.png?branch=master)](https://travis-ci.org/Juanmcuello/garufa) [![Code Climate](https://codeclimate.com/github/Juanmcuello/garufa.png)](https://codeclimate.com/github/Juanmcuello/garufa)
 
 Garufa
 ====
