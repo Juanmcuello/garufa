@@ -5,7 +5,7 @@ Garufa
 
 An open source server implementation of the [Pusher][pusher] protocol.
 
-**IMPORTANT:** Garufa is currently in alpha version, which means it is not
+**IMPORTANT:** Garufa is currently in beta version, which means it is not
 production ready, but you are free to use it and test it. Any feedback is
 welcome.
 
