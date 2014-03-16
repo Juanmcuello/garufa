@@ -57,12 +57,23 @@ module Garufa
       it 'should response with expected channel' do
         @message.channel.must_equal @channel
       end
+
+      it 'should response with empty data' do
+        @message.data.must_equal({})
+      end
     end
 
     describe '.pong' do
-      it 'should response with a pong event' do
-        Message.pong.event.must_equal 'pusher:pong'
-        Message.pong.data.must_equal({})
+      before do
+        @message = Message.pong
+      end
+
+      it 'should response with expected event' do
+        @message.event.must_equal 'pusher:pong'
+      end
+
+      it 'should response with empty data' do
+        @message.data.must_equal({})
       end
     end
 
