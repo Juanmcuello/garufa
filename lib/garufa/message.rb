@@ -36,7 +36,7 @@ module Garufa
     end
 
     def self.pong
-      new(event: 'pusher:pong')
+      new(event: 'pusher:pong', data: {})
     end
 
     def self.error(code, message)

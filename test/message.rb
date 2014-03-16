@@ -62,6 +62,7 @@ module Garufa
     describe '.pong' do
       it 'should response with a pong event' do
         Message.pong.event.must_equal 'pusher:pong'
+        Message.pong.data.must_equal({})
       end
     end
 
