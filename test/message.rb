@@ -3,9 +3,11 @@ require File.expand_path("helper", File.dirname(__FILE__))
 module Garufa
   describe Message do
     describe '.connection_established' do
+
+      let(:socket_id) { '123123-123123' }
+
       before do
-        @socket_id = '123123-123123'
-        @message = Message.connection_established @socket_id
+        @message = Message.connection_established socket_id
       end
 
       it 'should response with data attribute as string' do
@@ -18,36 +20,40 @@ module Garufa
 
       it 'should response with expected data' do
         data = JSON.parse(@message.data)
-        data["socket_id"].must_equal @socket_id
+        data["socket_id"].must_equal socket_id
         data["activity_timeout"].must_equal 120
       end
     end
 
     describe '.channel_event' do
+
+     let(:channel) { 'channel-123' }
+     let(:event) { 'my-event' }
+     let(:data) { { itemId: 1, value: 'Sample Item' } }
+
      before do
-        @channel = 'channel-123'
-        @event = 'my-event'
-        @data = { itemId: 1, value: 'Sample Item' }
-        @message = Message.channel_event @channel, @event, @data
+        @message = Message.channel_event channel, event, data
       end
 
       it 'should response with expected event' do
-        @message.event.must_equal @event
+        @message.event.must_equal event
       end
 
       it 'should response with expected data' do
-        @message.data.must_equal @data
+        @message.data.must_equal data
       end
 
       it 'should response with expected channel' do
-        @message.channel.must_equal @channel
+        @message.channel.must_equal channel
       end
     end
 
     describe '.subscription_succeeded' do
+
+      let(:channel) { 'channel-123' }
+
       before do
-        @channel = 'channel-123'
-        @message = Message.subscription_succeeded @channel
+        @message = Message.subscription_succeeded channel
       end
 
       it 'should response with expected event' do
@@ -55,7 +61,7 @@ module Garufa
       end
 
       it 'should response with expected channel' do
-        @message.channel.must_equal @channel
+        @message.channel.must_equal channel
       end
 
       it 'should response with empty data' do
@@ -64,6 +70,7 @@ module Garufa
     end
 
     describe '.pong' do
+
       before do
         @message = Message.pong
       end
@@ -78,9 +85,12 @@ module Garufa
     end
 
     describe '.error' do
+
+      let(:code) { 4000 }
+      let(:error_message) { 'There was an error!' }
+
       before do
-        @code, @error_message = 4000, 'There was an error!'
-        @message = Message.error @code, @error_message
+        @message = Message.error code, error_message
       end
 
       it 'should response with expected event' do
@@ -89,8 +99,8 @@ module Garufa
 
       it 'should response with expected data' do
         data = JSON.parse(@message.data)
-        data["code"].must_equal @code
-        data["message"].must_equal @error_message
+        data["code"].must_equal code
+        data["message"].must_equal error_message
       end
     end
   end
