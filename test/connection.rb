@@ -18,16 +18,18 @@ module Garufa
         end
 
         it 'should add a new Subscription to Subscriptions' do
+          @socket.expect :send, true, [String]
           @connection.handle_incomming_data @data.to_json
           Subscriptions.all['ch1'].first.class.must_equal Subscription
           Subscriptions.all['ch1'].count.must_equal 1
         end
 
         describe 'public channels' do
-          it 'should not response with any message' do
-            @socket.expect :send, true, [String]
+         it 'should response with subscription_succeeded' do
+            message = Message.subscription_succeeded(@data[:data][:channel])
+            @socket.expect :send, true, [message.to_json]
             @connection.handle_incomming_data @data.to_json
-            -> { @socket.verify }.must_raise(MockExpectationError, 'send should not be called')
+            @socket.verify
           end
         end
 

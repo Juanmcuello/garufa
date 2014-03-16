@@ -84,7 +84,7 @@ module Garufa
 
       if subscription.success?
         @subscriptions[subscription.channel] = subscription
-        send_subscription_succeeded(subscription) unless subscription.public_channel?
+        send_subscription_succeeded(subscription)
       else
         error(subscription.error.code, subscription.error.message)
       end
