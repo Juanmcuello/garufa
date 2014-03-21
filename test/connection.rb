@@ -11,6 +11,18 @@ module Garufa
 
     describe '.handle_incomming_data' do
 
+      describe 'pusher:ping' do
+
+        let(:data) { { event: 'pusher:ping', data: { channel: 'ch1' } } }
+
+        it 'should response with pong' do
+          message = Message.pong
+          @socket.expect :send, true, [message.to_json]
+          @connection.handle_incomming_data data.to_json
+          @socket.verify
+        end
+      end
+
       describe 'pusher:subscribe' do
 
         let(:data) { { event: 'pusher:subscribe', data: { channel: 'ch1' } } }
@@ -69,6 +81,25 @@ module Garufa
             @socket.verify
           end
         end
+      end
+
+      describe 'pusher:unsubscribe' do
+
+        let(:channel) { 'ch1' }
+        let(:data_subscribe) { { event: 'pusher:subscribe', data: { channel: channel } } }
+        let(:data_unsubscribe) { { event: 'pusher:unsubscribe', data: { channel: channel } } }
+
+        before do
+          @socket.expect :send, true, [String]
+          @connection.handle_incomming_data data_subscribe.to_json
+        end
+
+        it 'should remove Subscription from Subscriptions' do
+          count = Subscriptions.all[channel].count
+          @connection.handle_incomming_data data_unsubscribe.to_json
+          Subscriptions.all[channel].count.must_equal count - 1
+        end
+
       end
     end
   end
