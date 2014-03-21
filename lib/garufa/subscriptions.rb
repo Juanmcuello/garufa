@@ -39,7 +39,7 @@ module Garufa
     private
 
     def subscriptions
-      @subscriptions ||= Hash.new(Set.new)
+      @subscriptions ||= Hash.new { |h, k| h[k] = Set.new }
     end
   end
 
