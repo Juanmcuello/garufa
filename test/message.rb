@@ -27,11 +27,11 @@ module Garufa
 
     describe '.channel_event' do
 
-     let(:channel) { 'channel-123' }
-     let(:event) { 'my-event' }
-     let(:data) { { itemId: 1, value: 'Sample Item' } }
+      let(:channel) { 'channel-123' }
+      let(:event) { 'my-event' }
+      let(:data) { { itemId: 1, value: 'Sample Item' } }
 
-     before do
+      before do
         @message = Message.channel_event channel, event, data
       end
 
