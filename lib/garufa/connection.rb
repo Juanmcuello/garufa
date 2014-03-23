@@ -1,5 +1,9 @@
 require 'uri'
 
+require 'garufa/subscription'
+require 'garufa/message'
+require 'garufa/config'
+
 module Garufa
   class Connection
 

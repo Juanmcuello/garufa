@@ -1,4 +1,5 @@
 require 'cuba'
+
 require 'garufa/cuba/authentication'
 require 'garufa/api/handler'
 

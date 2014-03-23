@@ -1,4 +1,5 @@
 require 'json'
+
 require 'garufa/subscriptions'
 require 'garufa/message'
 
