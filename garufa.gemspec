@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/Juanmcuello/garufa"
   s.bindir      = 'bin'
   s.executables << 'garufa'
+  s.required_ruby_version = '>=1.9'
 
   s.files = Dir[
     "LICENSE",
