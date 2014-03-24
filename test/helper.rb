@@ -1,8 +1,7 @@
-$:.unshift(File.expand_path("../lib", File.dirname(__FILE__)))
-
-require "garufa"
 require 'minitest/autorun'
 require 'minitest/mock'
+
+require_relative "../lib/garufa"
 
 Garufa::Config[:app_key] = '123123-123123'
 Garufa::Config[:secret] = '456456-456456'
