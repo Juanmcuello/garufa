@@ -25,13 +25,14 @@ module Garufa
 
       describe 'pusher:subscribe' do
 
-        let(:data) { { event: 'pusher:subscribe', data: { channel: 'ch1' } } }
+        let(:channel) { 'ch1' }
+        let(:data) { { event: 'pusher:subscribe', data: { channel: channel } } }
 
         it 'should add a new Subscription to Subscriptions' do
+          count = Subscriptions.all[channel].count
           @socket.expect :send, true, [String]
           @connection.handle_incomming_data data.to_json
-          Subscriptions.all['ch1'].first.class.must_equal Subscription
-          Subscriptions.all['ch1'].count.must_equal 1
+          Subscriptions.all[channel].count.must_equal count + 1
         end
 
         describe 'public channels' do
