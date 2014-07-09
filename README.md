@@ -6,10 +6,6 @@ Garufa
 
 An open source server implementation of the [Pusher][pusher] protocol.
 
-**IMPORTANT:** Garufa is currently in beta version, which means it is not
-production ready, but you are free to use it and test it. Any feedback is
-welcome.
-
 Intro
 -----
 
@@ -23,7 +19,7 @@ Install
 Be sure you have a ruby version >= 1.9.2
 
 ``` console
-$ gem install garufa --pre
+$ gem install garufa
 
 $ garufa --help
 ```
@@ -89,7 +85,7 @@ SSL support
 -----------
 
 ``` console
-$ garufa -sv --app_key app-key --secret app-secret --ssl --ssl-cert /path/to/cert.pem --ssl-key /path/to/key.key
+$ garufa -sv --app_key app-key --secret app-secret --ssl --ssl-cert /path/to/cert.pem --ssl-key /path/to/cert.key
 ```
 
 **NOTE**: At the moment, Garufa uses the same port for API messages and websocket
