@@ -93,9 +93,56 @@ $ garufa -sv --app_key app-key --secret app-secret --ssl --ssl-cert /path/to/cer
 ```
 
 **NOTE**: At the moment, Garufa uses the same port for API messages and websocket
-connections. This means that if you start the server with ssl enabled, you will
-have to enable ssl in the client library as well as in the api client.
+connections. This means that if you start the server with SSL enabled, you will
+have to enable SSL in the client library as well as in the api client.
 
+An alternative is to setup Garufa behind a reverse proxy such as Nginx and let the
+proxy take care of SSL. See below for more info.
+
+
+Using Nginx as reverse proxy
+----------------------
+
+You can set Garufa behind Nginx if you want: http://nginx.org/en/docs/http/websocket.html
+
+Take into account that you will need to set *proxy_read_timeout* to a value a little
+higher than Pusher *ACTIVITY_TIMEOUT*, otherwise Nginx will close the connection.
+
+In addition, you can let Ngnix take care of SSL and start Garufa without SSL enabled.
+You could use something like this in your Nginx configuration.
+
+```
+upstream garufa {
+    server 127.0.0.1:8000;
+}
+
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+server {
+    listen       8080;
+    server_name  garufa.example.com;
+
+    ; Set this a little higher than Pusher ACTIVITY_TIMEOUT
+    proxy_read_timeout  150;
+
+    ssl                        on;
+    ssl_certificate            /path/to/cert.pem;
+    ssl_certificate_key        /path/to/cert.key;
+    ssl_session_timeout        5m;
+    ssl_ciphers                HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+
+    location / {
+        proxy_pass          http://garufa;
+        proxy_http_version  1.1;
+        proxy_set_header    Upgrade $http_upgrade;
+        proxy_set_header    Connection $connection_upgrade;
+    }
+}
+```
 
 Testing and Contributing
 ------------------------
@@ -111,8 +158,7 @@ $ bundle init --gemspec=garufa.gemspec
 $ bundle install
 ```
 
-Once you have dependencies installed, just run *rake test*, or just *rake*, as
-*test* is the default task.
+Once you have dependencies installed, run *rake test* (or just *rake*).
 
 ``` console
 $ rake
