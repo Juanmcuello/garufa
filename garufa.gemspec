@@ -25,10 +25,10 @@ Gem::Specification.new do |s|
     "test/*.*"
   ]
 
-  s.add_dependency "goliath", "1.0.3"
-  s.add_dependency "faye-websocket", "0.7.2"
+  s.add_dependency "goliath", "1.0.4"
+  s.add_dependency "faye-websocket", "0.7.4"
   s.add_dependency "cuba", "3.1.1"
   s.add_dependency "signature", "0.1.7"
-  s.add_development_dependency "rake", "10.1.0"
-  s.add_development_dependency "minitest", "5.3.1"
+  s.add_development_dependency "rake", "10.3.2"
+  s.add_development_dependency "minitest", "5.4.0"
 end
