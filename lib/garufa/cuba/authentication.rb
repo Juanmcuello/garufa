@@ -4,7 +4,7 @@ require 'garufa/config'
 class Cuba
   module Authentication
     def authenticate
-      request = Signature::Request.new(req.request_method, env['REQUEST_PATH'], req.params)
+      request = Signature::Request.new(req.request_method, req.path, req.params)
       request.authenticate { |key| Signature::Token.new(key, Garufa::Config[:secret]) }
 
     rescue Signature::AuthenticationError
