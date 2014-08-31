@@ -3,7 +3,8 @@ require 'garufa/subscriptions'
 
 module Garufa
   class Subscription
-    attr_reader :data, :connection, :error
+
+    attr_reader :error
 
     def initialize(data, connection)
       @data, @connection = data, connection
@@ -54,6 +55,14 @@ module Garufa
 
     def channel_prefix
       channel[/^private-|presence-/].to_s[0...-1]
+    end
+
+    def notify(message)
+      @connection.send_message message
+    end
+
+    def socket_id
+      @connection.socket_id
     end
 
     private

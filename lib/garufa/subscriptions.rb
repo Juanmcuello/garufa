@@ -18,17 +18,11 @@ module Garufa
     end
 
     def notify(channels, event, options = {})
-      return unless channels.is_a?(Array) && channels.any?
-
       channels.each do |channel|
-        connections = subscriptions[channel].map { |s| s.connection }
-        next unless connections.any?
-
-        connections.each do |connection|
-          next if connection.socket_id == options[:socket_id]
-
-          message = Message.channel_event(channel, event, options[:data])
-          connection.send_message(message)
+        subscriptions[channel].each do |sub|
+          # Skip notifying if the same socket_id is provided
+          next if sub.socket_id == options[:socket_id]
+          sub.notify Message.channel_event(channel, event, options[:data])
         end
       end
     end
