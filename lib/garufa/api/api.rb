@@ -5,10 +5,10 @@ require 'garufa/api/handler'
 
 module Garufa
   module Api
-
     Cuba.plugin Cuba::Authentication
 
     Server = Cuba.new do
+      handler = Handler.new(env.logger)
 
       on "apps/:app_id" do |app_id|
 
@@ -17,7 +17,7 @@ module Garufa
         # Events
         on post, "events" do
           # Process requests deferred in order to response immediately.
-          EM.defer proc { Handler.handle_events(req.body.read) }
+          EM.defer proc { handler.handle_events(req.body.read) }
           res.write "{}"
         end
 
