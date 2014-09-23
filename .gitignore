@@ -1,3 +1,4 @@
-*/**/*.log
-*/**/*.pid
-
+*.log
+*.pid
+Gemfile
+Gemfile.lock
