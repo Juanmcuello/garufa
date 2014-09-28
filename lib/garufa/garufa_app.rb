@@ -2,8 +2,8 @@ require 'goliath/api'
 require 'goliath/connection'
 require 'faye/websocket'
 require 'garufa/config'
-require 'garufa/websocket/websocket'
-require 'garufa/api/api'
+require 'garufa/websocket'
+require 'garufa/api'
 
 module Garufa
 
@@ -35,7 +35,7 @@ module Garufa
       if Faye::WebSocket.websocket?(env)
         WebSocket::Server.call(env)
       else
-        Api::Server.call(env)
+        API::Server.call(env)
       end
     end
   end
