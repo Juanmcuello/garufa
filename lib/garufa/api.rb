@@ -10,8 +10,6 @@ module Garufa
       plugin Authentication
 
       define do
-        event_handler = Garufa::API::EventHandler.new(env.logger)
-
         on "apps/:app_id" do |app_id|
 
           authenticate
@@ -19,7 +17,7 @@ module Garufa
           # Events
           on post, "events" do
             # Process requests deferred in order to response immediately.
-            EM.defer proc { event_handler.handle_event(req.body.read) }
+            EM.defer proc { EventHandler.new(env.logger).handle_event(req.body.read) }
             res.write "{}"
           end
 
