@@ -17,7 +17,8 @@ module Garufa
           # Events
           on post, "events" do
             # Process requests deferred in order to response immediately.
-            EM.defer proc { EventHandler.new(env.logger).handle_event(req.body.read) }
+            event_handler = EventHandler.new(env.logger)
+            EM.defer proc { event_handler.handle_event(req.body.read) }
             res.write "{}"
           end
 
