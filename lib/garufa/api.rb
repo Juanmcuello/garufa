@@ -8,6 +8,7 @@ module Garufa
     class Server < Cuba
 
       plugin Authentication
+      plugin EventHandler
 
       define do
         on "apps/:app_id" do |app_id|
@@ -16,11 +17,7 @@ module Garufa
 
           # Events
           on post, "events" do
-            # Process requests deferred in order to response immediately.
-            EM.defer do
-              event_handler = EventHandler.new(env.logger)
-              event_handler.handle_event(req.body.read)
-            end
+            handle_event(req.body.read)
             res.write "{}"
           end
 

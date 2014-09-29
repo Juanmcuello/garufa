@@ -5,22 +5,16 @@ require 'garufa/message'
 
 module Garufa
   module API
-    class EventHandler
-
-      def initialize(logger)
-        @logger = logger
-      end
-
+    module EventHandler
       def handle_event(body)
         message = Garufa::Message.new(JSON.parse(body))
-        options = {
-          data: message.data,
-          socket_id: message.socket_id
-        }
-        Garufa::Subscriptions.notify message.channels, message.name, options
+        options = { data: message.data, socket_id: message.socket_id }
+
+        # Process event deferred in order to response immediately.
+        EM.defer { Garufa::Subscriptions.notify message.channels, message.name, options }
 
       rescue JSON::ParserError => e
-        @logger.error e.inspect
+        env.logger.error e.inspect
       end
     end
   end
