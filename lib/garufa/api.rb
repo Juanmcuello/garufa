@@ -17,7 +17,15 @@ module Garufa
 
           # Events
           on post, "events" do
-            handle_event(req.body.read)
+            handle_events(req.body.read)
+            res.status = 202
+            res.write "{}"
+          end
+
+          # Legacy events
+          on post, "channels/:channel_id/events" do |channel_id|
+            handle_events(req.body.read, req.GET.merge(channels: [channel_id]))
+            res.status = 202
             res.write "{}"
           end
 
