@@ -1,44 +1,25 @@
 require 'cuba'
-
 require 'garufa/api/authentication'
-require 'garufa/api/event_handler'
+require 'garufa/api/events'
+require 'garufa/api/channels'
 
 module Garufa
   module API
-    class Server < Cuba
+    class Server < Cuba; end
 
-      plugin Authentication
-      plugin EventHandler
+    Server.plugin Authentication
 
-      define do
-        on "apps/:app_id" do |app_id|
+    Server.define do
+      on "apps/:app_id" do |app_id|
 
-          authenticate
+        authenticate
 
-          # Events
-          on post, "events" do
-            handle_events(req.body.read)
-            res.status = 202
-            res.write "{}"
-          end
+        on post do
+          run Events
+        end
 
-          # Legacy events
-          on post, "channels/:channel_id/events" do |channel_id|
-            handle_events(req.body.read, req.GET.merge(channels: [channel_id]))
-            res.status = 202
-            res.write "{}"
-          end
-
-          # Channels
-          on get, "channels" do
-          end
-
-          on get, "channels/:channel" do
-          end
-
-          # Users
-          on get, "channels/:channel/users" do
-          end
+        on get do
+          run Channels
         end
       end
     end
