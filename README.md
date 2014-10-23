@@ -34,12 +34,12 @@ $ garufa -sv --app_key app-key --secret app-secret
 ```
 
 This will start Garufa, logging to stdout in verbose mode. If you want Garufa
-to run in background (daemonized) just add `-d` flag.
+to run in background (daemonized) add `-d` flag.
 
 Now say you want to send events to your browser. Just create an .html file
 which requires the *pusher.js* library and binds to some events, then point
-your browser to that file (for testing purpouse, you can just simply open it
-with your browser).
+your browser to that file (for testing purpose, you can simply open it with
+your browser).
 
 Maybe you would like to open your JavaScript console to see JavaScript debug
 messages.
@@ -62,8 +62,7 @@ messages.
 ```
 
 Now trigger *my-event* from Ruby code. Be sure you have already installed
-the *pusher* gem (*gem install pusher*). Open a Ruby console and paste this
-code:
+the *pusher* gem (*gem install pusher*). Open a Ruby console and paste this:
 
 
 ``` ruby
@@ -188,7 +187,7 @@ Testing and Contributing
 It's up to you how you install Garufa dependencies for development and testing,
 just be sure you have installed dependencies listed in the .gemspec. If you want
 to let *bundler* handle this, you can generate a Gemfile from the .gemspec and
-then just run *bundle install*.
+then run *bundle install*.
 
 
 ``` console
