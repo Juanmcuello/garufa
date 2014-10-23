@@ -36,10 +36,10 @@ $ garufa -sv --app_key app-key --secret app-secret
 This will start Garufa, logging to stdout in verbose mode. If you want Garufa
 to run in background (daemonized) add `-d` flag.
 
-Now say you want to send events to your browser. Just create an .html file
-which requires the *pusher.js* library and binds to some events, then point
-your browser to that file (for testing purpose, you can simply open it with
-your browser).
+Now say you want to send events to your browser. Create an .html file which
+requires the *pusher.js* library and binds to some events, then point your
+browser to that file (for testing purpose, you can simply open it with your
+browser).
 
 Maybe you would like to open your JavaScript console to see JavaScript debug
 messages.
