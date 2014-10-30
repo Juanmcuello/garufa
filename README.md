@@ -181,6 +181,17 @@ Set `Pusher.port` and `Pusher.ws_port` in the example above to port 80, and
 `Pusher.host` to the name of your app provided by Heroku (something like
 `random-name-2323.herokuapp.com`).
 
+Checking number of current connections
+--------------------------------------
+
+A simple way to check the number of current connections is using `lsof`. Be sure to
+set the right path to garufa.pid file.
+
+
+``` console
+while :; do echo "$(date '+%H:%M:%S') $(sudo lsof -p `cat /path/to/garufa.pid` | grep ESTABLISHED | wc -l)"; sleep 1; done;
+```
+
 Testing and Contributing
 ------------------------
 
