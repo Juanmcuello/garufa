@@ -30,7 +30,7 @@ Usage
 Start garufa server:
 
 ``` console
-$ garufa -sv --app_key app-key --secret app-secret
+$ garufa -sv --app_id app-id --app_key app-key --secret app-secret
 ```
 
 This will start Garufa, logging to stdout in verbose mode. If you want Garufa
@@ -71,7 +71,7 @@ require 'pusher'
 Pusher.host = 'localhost'
 Pusher.port = 8080
 
-Pusher.app_id = 'my-app'
+Pusher.app_id = 'app-id'
 Pusher.key = 'app-key'
 Pusher.secret = 'app-secret'
 

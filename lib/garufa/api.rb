@@ -12,7 +12,7 @@ module Garufa
     Server.define do
       on "apps/:app_id" do |app_id|
 
-        authenticate
+        authenticate(app_id)
 
         on post do
           run Events

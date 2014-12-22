@@ -23,6 +23,7 @@ module Garufa
       opts.separator "Pusher options:"
 
       new_options = {
+        app_id:  ['--app_id APP_ID',   'Pusher application ID (required)'],
         app_key: ['--app_key APP_KEY', 'Pusher application key (required)'],
         secret:  ['--secret SECRET',   'Pusher application secret (required)']
       }
