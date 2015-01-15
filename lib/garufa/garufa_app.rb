@@ -4,6 +4,7 @@ require 'faye/websocket'
 require 'garufa/config'
 require 'garufa/websocket'
 require 'garufa/api'
+require 'garufa/version'
 
 module Garufa
 
@@ -30,6 +31,9 @@ module Garufa
       new_options.each do |k, v|
         opts.on(v.first, v.last) { |value| Garufa::Config[k] = value }
       end
+
+      opts.separator ""
+      opts.on('-V', '--version', 'Display version and exit') { puts "Garufa version #{Garufa::VERSION}"; exit }
     end
 
     def response(env)
