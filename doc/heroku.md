@@ -18,7 +18,7 @@ ruby '2.1.2'
 gem 'garufa'
 
 # Procfile
-web: garufa -v --app_key $GARUFA_APP_KEY --secret $GARUFA_SECRET -p $PORT
+web: garufa -v --app_id $GARUFA_APP_ID --app_key $GARUFA_APP_KEY --secret $GARUFA_SECRET -p $PORT
 ```
 
 Generate Gemfile.lock and commit your changes:
@@ -32,6 +32,7 @@ Create your app, set environment variables and deploy:
 
 ```
 $ heroku create
+$ heroku config:set GARUFA_APP_ID=app-id
 $ heroku config:set GARUFA_APP_KEY=app-key
 $ heroku config:set GARUFA_SECRET=app-secret
 $ git push heroku master
