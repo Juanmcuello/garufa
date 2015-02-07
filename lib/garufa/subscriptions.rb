@@ -10,7 +10,8 @@ module Garufa
     end
 
     def add(subscription)
-      subscriptions[subscription.channel].add subscription
+      subs = subscriptions[subscription.channel] ||= Set.new
+      subs.add subscription
     end
 
     def remove(subscription)
@@ -35,26 +36,41 @@ module Garufa
     end
 
     def include?(subscription)
-      subscriptions[subscription.channel].include? subscription
+      subs = subscriptions[subscription.channel]
+      subs && subs.include?(subscription)
     end
 
-    def presence_data(channel)
+    def channel_size(channel)
       subs = subscriptions[channel]
-      data = { count: subs.size, ids: [], hash: {} }
+      subs ? subs.size : 0
+    end
 
-      subs.each do |sub|
-        id, info = JSON.parse(sub.channel_data).values_at('user_id', 'user_info')
-        data[:ids] << id
-        data[:hash][id] = info
+    def channels_data(channel)
+      response = { ids: [], hash: {} }
+
+      (subscriptions[channel] || []).each do |sub|
+        channel_data = JSON.parse(sub.channel_data)
+        id, info = channel_data.values_at('user_id', 'user_info')
+
+        next if response[:ids].include? id
+
+        response[:ids] << id
+        response[:hash][id] = info
       end
+      response
+    end
 
-      { presence: data }
+    def channel_stats(channel)
+      {
+        size: channel_size(channel),
+        presence: channels_data(channel)
+      }
     end
 
     private
 
     def subscriptions
-      @subscriptions ||= Hash.new { |h, k| h[k] = Set.new }
+      @subscriptions ||= {}
     end
   end
 end

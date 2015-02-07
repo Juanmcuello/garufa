@@ -1,0 +1,5 @@
+json[:occupied] = stats[:presence][:ids].count > 0
+
+if filter[:info].include? 'user_count'
+  json[:user_count] = stats[:presence][:ids].count
+end

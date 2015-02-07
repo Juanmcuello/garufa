@@ -1,0 +1,14 @@
+channels = {}
+
+stats.each do |channel, data|
+
+  next unless channel.start_with? filter[:prefix].to_s
+
+  channels[channel] = {}
+
+  if filter[:info].include? 'user_count'
+    channels[channel] = { user_count: data[:presence][:ids].count }
+  end
+end
+
+json[:channels] = channels

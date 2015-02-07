@@ -119,7 +119,12 @@ module Garufa
 
     def send_subscription_succeeded(subscription)
       channel = subscription.channel
-      data = subscription.presence_channel? ? Subscriptions.presence_data(channel) : {}
+      data = {}
+
+      if subscription.presence_channel?
+        data[:presence] = Subscriptions.channels_data(channel)
+        data[:presence][:count] = Subscriptions.channel_size(channel)
+      end
 
       send_message Message.subscription_succeeded(channel, data)
     end

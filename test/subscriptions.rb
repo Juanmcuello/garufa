@@ -14,9 +14,9 @@ module Garufa
       end
 
       it 'should remove subscription to channel' do
-        count = Subscriptions.all[channel].count
+        count = Subscriptions.channel_size(channel)
         Subscriptions.remove @subscription
-        Subscriptions.all[channel].count.must_equal count - 1
+        Subscriptions.channel_size(channel).must_equal count - 1
       end
     end
 
@@ -29,9 +29,9 @@ module Garufa
       end
 
       it 'should add a new subscription to channel' do
-        count = Subscriptions.all[channel].count
+        count = Subscriptions.channel_size(channel)
         Subscriptions.add Subscription.new(data, @connection)
-        Subscriptions.all[channel].count.must_equal count + 1
+        Subscriptions.channel_size(channel).must_equal count + 1
       end
     end
 

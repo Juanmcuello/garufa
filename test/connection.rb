@@ -29,10 +29,10 @@ module Garufa
         let(:data) { { event: 'pusher:subscribe', data: { channel: channel } } }
 
         it 'should add a new Subscription to Subscriptions' do
-          count = Subscriptions.all[channel].count
+          count = Subscriptions.channel_size(channel)
           @socket.expect :send, true, [String]
           @connection.handle_incomming_data data.to_json
-          Subscriptions.all[channel].count.must_equal count + 1
+          Subscriptions.channel_size(channel).must_equal count + 1
         end
 
         describe 'public channels' do
@@ -96,9 +96,9 @@ module Garufa
         end
 
         it 'should remove Subscription from Subscriptions' do
-          count = Subscriptions.all[channel].count
+          count = Subscriptions.channel_size(channel)
           @connection.handle_incomming_data data_unsubscribe.to_json
-          Subscriptions.all[channel].count.must_equal count - 1
+          Subscriptions.channel_size(channel).must_equal count - 1
         end
 
       end

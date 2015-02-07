@@ -1,9 +1,10 @@
 require 'goliath/api'
 require 'goliath/connection'
 require 'faye/websocket'
+
 require 'garufa/config'
 require 'garufa/websocket'
-require 'garufa/api'
+require 'garufa/api/server'
 require 'garufa/version'
 
 module Garufa

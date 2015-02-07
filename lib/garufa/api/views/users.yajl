@@ -1,0 +1,3 @@
+json[:users] = {
+  ids: stats[:presence][:ids]
+}
