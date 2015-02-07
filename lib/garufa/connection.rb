@@ -54,7 +54,7 @@ module Garufa
     end
 
     def cleanup
-      @subscriptions.values.each(&:unsubscribe)
+      @subscriptions.each { |_, subscription| unsubscribe(subscription) }
       @subscriptions.clear
     end
 
@@ -84,11 +84,16 @@ module Garufa
 
     def pusher_subscribe(data)
       subscription = Subscription.new(data, self)
+      subscribe(subscription)
+    end
+
+    def subscribe(subscription)
       subscription.subscribe
 
       if subscription.success?
         @subscriptions[subscription.channel] = subscription
         send_subscription_succeeded(subscription)
+        notify_member(:member_added, subscription) if subscription.presence_channel?
       else
         error(subscription.error.code, subscription.error.message)
       end
@@ -96,7 +101,12 @@ module Garufa
 
     def pusher_unsubscribe(data)
       subscription = @subscriptions.delete data["channel"]
-      subscription.unsubscribe if subscription
+      unsubscribe(subscription) if subscription
+    end
+
+    def unsubscribe(subscription)
+      subscription.unsubscribe
+      notify_member(:member_removed, subscription) if subscription.presence_channel?
     end
 
     def valid_app_key?
@@ -108,7 +118,18 @@ module Garufa
     end
 
     def send_subscription_succeeded(subscription)
-      send_message Message.subscription_succeeded(subscription.channel)
+      channel = subscription.channel
+      data = subscription.presence_channel? ? Subscriptions.presence_data(channel) : {}
+
+      send_message Message.subscription_succeeded(channel, data)
+    end
+
+    def notify_member(event, subscription)
+      options = {
+        data: subscription.channel_data,
+        socket_id: subscription.socket_id
+      }
+      Subscriptions.notify [subscription.channel], "pusher_internal:#{event}", options
     end
   end
 end

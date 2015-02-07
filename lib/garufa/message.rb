@@ -31,8 +31,8 @@ module Garufa
       new(event: 'pusher:connection_established', data: data)
     end
 
-    def self.subscription_succeeded(channel)
-      new(event: 'pusher_internal:subscription_succeeded', channel: channel, data: {})
+    def self.subscription_succeeded(channel, data = {})
+      new(event: 'pusher_internal:subscription_succeeded', channel: channel, data: data)
     end
 
     def self.pong

@@ -53,6 +53,10 @@ module Garufa
       @data['channel']
     end
 
+    def channel_data
+      @data['channel_data']
+    end
+
     def channel_prefix
       channel[/^private-|presence-/].to_s[0...-1]
     end
@@ -76,7 +80,7 @@ module Garufa
     end
 
     def valid_signature?
-      string_to_sign = [@connection.socket_id, channel].compact.join(':')
+      string_to_sign = [@connection.socket_id, channel, channel_data].compact.join(':')
       token(string_to_sign) == signature
     end
 
