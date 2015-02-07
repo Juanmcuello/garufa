@@ -20,6 +20,8 @@ module Garufa
 
       options[:port] = DEFAULT_PORT
 
+      opts.on('-V', '--version', 'Display version and exit') { puts "Garufa version #{Garufa::VERSION}"; exit }
+
       opts.separator ""
       opts.separator "Pusher options:"
 
@@ -32,8 +34,6 @@ module Garufa
         opts.on(v.first, v.last) { |value| Garufa::Config[k] = value }
       end
 
-      opts.separator ""
-      opts.on('-V', '--version', 'Display version and exit') { puts "Garufa version #{Garufa::VERSION}"; exit }
     end
 
     def response(env)
