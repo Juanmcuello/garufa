@@ -11,7 +11,7 @@ module Garufa
 
         # Some old api clients send channel and event in the url, while only data is
         # in the body. New clients send everything in the body. We have to check where
-        # data is coming to build the final params.
+        # data is coming in to build the final params.
         params.merge!(body_params['data'] ? body_params : { data: body_params })
 
         message = Garufa::Message.new(params)
