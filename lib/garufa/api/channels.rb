@@ -6,6 +6,7 @@ require 'yajl/json_gem'
 require 'tilt/yajl'
 
 require 'garufa/api/channel_filter'
+require 'garufa/api/settings_setter'
 
 module Garufa
   module API
@@ -13,9 +14,10 @@ module Garufa
 
     Channels.plugin Cuba::Render
     Channels.plugin ChannelFilter
+    Channels.plugin SettingsSetter
 
-    Channels.settings[:render][:template_engine] = 'yajl'
-    Channels.settings[:render][:views] = File.expand_path("views", File.dirname(__FILE__))
+    Channels.set(:render, template_engine: 'yajl')
+    Channels.set(:render, views: File.expand_path("views", File.dirname(__FILE__)))
 
     Channels.define do
 
