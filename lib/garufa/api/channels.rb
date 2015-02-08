@@ -10,14 +10,14 @@ require 'garufa/api/settings_setter'
 
 module Garufa
   module API
-    class Channels < Cuba; end
+    class Channels < Cuba
+      plugin Cuba::Render
+      plugin ChannelFilter
+      plugin SettingsSetter
 
-    Channels.plugin Cuba::Render
-    Channels.plugin ChannelFilter
-    Channels.plugin SettingsSetter
-
-    Channels.set(:render, template_engine: 'yajl')
-    Channels.set(:render, views: File.expand_path("views", File.dirname(__FILE__)))
+      set :render, template_engine: 'yajl'
+      set :render, views: File.expand_path("views", File.dirname(__FILE__))
+    end
 
     Channels.define do
 
