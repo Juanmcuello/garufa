@@ -14,7 +14,9 @@ module Garufa
     end
 
     def remove(subscription)
-      subscriptions[subscription.channel].delete subscription
+      channel = subscription.channel
+      subscriptions[channel].delete subscription
+      subscriptions.delete(channel) if channel_size(channel) == 0
     end
 
     def notify(channels, event, options = {})

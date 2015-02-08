@@ -105,8 +105,8 @@ module Garufa
     end
 
     def unsubscribe(subscription)
-      subscription.unsubscribe
       notify_member(:member_removed, subscription) if subscription.presence_channel?
+      subscription.unsubscribe
     end
 
     def valid_app_key?
