@@ -15,8 +15,7 @@ module Garufa
       plugin ChannelFilter
       plugin SettingsSetter
 
-      set :render, template_engine: 'yajl'
-      set :render, views: File.expand_path("views", File.dirname(__FILE__))
+      set :render, template_engine: 'yajl', views: File.expand_path("views", File.dirname(__FILE__))
     end
 
     Channels.define do
