@@ -22,16 +22,21 @@ module Garufa
 
     def notify(channels, event, options = {})
       channels.each do |channel|
-        subscriptions[channel].each do |sub|
+        notify_channel(channel, event, options)
+      end
+    end
 
-          # Skip notifying if the same socket_id is provided
-          next if sub.socket_id == options[:socket_id]
+    def notify_channel(channel, event, options)
+      return if channel_size(channel) == 0
 
-          # Skip notifying the same member (probably from different tabs)
-          next if sub.presence_channel? and sub.channel_data == options[:data]
+      subscriptions[channel].each do |sub|
+        # Skip notifying if the same socket_id is provided
+        next if sub.socket_id == options[:socket_id]
 
-          sub.notify Message.channel_event(channel, event, options[:data])
-        end
+        # Skip notifying the same member (probably from different tabs)
+        next if sub.presence_channel? and sub.channel_data == options[:data]
+
+        sub.notify Message.channel_event(channel, event, options[:data])
       end
     end
 
