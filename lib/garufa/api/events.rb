@@ -13,17 +13,17 @@ module Garufa
 
     Events.define do
 
+      status 202
+
       # Events
       on "events" do
         handle_events(read_body)
-        status 202
         res.write "{}"
       end
 
       # Legacy events
       on "channels/:channel_id/events" do |channel_id|
         handle_events(read_body, req.GET.merge(channels: [channel_id]))
-        status 202
         res.write "{}"
       end
     end
