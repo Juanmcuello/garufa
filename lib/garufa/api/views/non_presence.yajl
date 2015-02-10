@@ -1,0 +1,4 @@
+json = {
+  occupied: stats[:size] > 0,
+  subscription_count: stats[:size]
+}

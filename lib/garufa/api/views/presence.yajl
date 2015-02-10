@@ -1,0 +1,8 @@
+json = {
+  occupied: stats[:size] > 0,
+  subscription_count: stats[:size]
+}
+
+if filter[:info].include?('user_count') && stats[:presence]
+  json[:user_count] = stats[:presence][:count]
+end

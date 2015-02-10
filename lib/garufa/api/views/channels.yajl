@@ -1,15 +1,12 @@
 channels = {}
 
-stats.each do |data|
+stats.each do |channel, values|
+  next unless channel.start_with? filter[:prefix].to_s
 
-  channel = data[:name].to_s
+  channels[channel] = {}
 
-  if channel.start_with? filter[:prefix].to_s
-    channels[channel] = {}
-
-    if filter[:info].include? 'user_count'
-      channels[channel] = { user_count: data[:presence][:ids].count }
-    end
+  if filter[:info].include?('user_count') && values[:presence]
+    channels[channel][:user_count] = values[:presence][:count]
   end
 end
 

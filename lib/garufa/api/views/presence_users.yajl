@@ -1,0 +1,3 @@
+json[:users] = stats[:presence][:ids].map do |id|
+  { id: id }
+end

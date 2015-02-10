@@ -3,11 +3,13 @@ require 'garufa/subscriptions'
 module Garufa
   module API
     module ChannelStats
-      def stats(*channels)
-        channels = Subscriptions.all.keys unless channels.any?
+      def channel_stats(channel)
+        Subscriptions.channel_stats(channel)
+      end
 
-        channels.map do |channel|
-          Subscriptions.channel_stats(channel)
+      def channels_stats
+        Subscriptions.all.each_with_object({}) do |(channel, _), stats|
+          stats[channel] = channel_stats(channel)
         end
       end
     end

@@ -50,27 +50,29 @@ module Garufa
       subs ? subs.size : 0
     end
 
-    def channel_data(channel)
-      response = { ids: [], hash: {} }
+    def presence_stats(channel)
+      return unless channel.start_with?('presence-')
+
+      data = { ids: [], hash: {} }
 
       (subscriptions[channel] || []).each do |sub|
-        data = JSON.parse(sub.channel_data)
-        id, info = data.values_at('user_id', 'user_info')
 
-        next if response[:ids].include? id
+        channel_data = JSON.parse(sub.channel_data)
+        id, info = channel_data.values_at('user_id', 'user_info')
 
-        response[:ids] << id
-        response[:hash][id] = info
+        next if data[:ids].include? id
+
+        data[:ids] << id
+        data[:hash][id] = info
       end
-      response[:count] = response[:ids].count
-      response
+
+      data.merge(count: data[:ids].count)
     end
 
     def channel_stats(channel)
       {
-        name: channel,
         size: channel_size(channel),
-        presence: channel_data(channel)
+        presence: presence_stats(channel)
       }
     end
 

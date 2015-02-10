@@ -6,7 +6,10 @@ require 'garufa/message'
 module Garufa
   module API
     module EventHandler
-      def handle_events(body, params = {})
+      def handle_events(body, channel = nil, params = {})
+
+        params.merge!(channels: [channel]) if channel
+
         body_params = JSON.parse(body)
 
         # Some old api clients send channel and event in the url, while only data is
