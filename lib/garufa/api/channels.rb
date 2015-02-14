@@ -25,7 +25,7 @@ module Garufa
       set :render, template_engine: 'yajl'
       set :render, views: File.expand_path("views", File.dirname(__FILE__))
 
-      include ::Routes::Channels
+      include Routes::Channels
     end
   end
 end
