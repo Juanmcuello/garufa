@@ -1,3 +1,3 @@
 module Garufa
-  VERSION = '1.1.0.rc.3'
+  VERSION = '1.1.0.rc.4'
 end
