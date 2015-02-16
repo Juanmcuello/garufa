@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "lib/**/*.rb",
+    "lib/**/*.yajl",
     "bin/*",
     "*.gemspec",
     "test/*.*"
