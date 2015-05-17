@@ -2,3 +2,4 @@
 *.pid
 Gemfile
 Gemfile.lock
+.ruby-version
