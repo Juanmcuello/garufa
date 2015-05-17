@@ -72,7 +72,8 @@ module Garufa
     private
 
     def valid_channel?
-      channel.is_a?(String) && !channel.empty?
+      # See https://gist.github.com/mdpye/f062cacb8a9d5e3d102c
+      channel =~ /^[A-Za-z0-9_\-=@,.;]+$/
     end
 
     def valid_app_key?
