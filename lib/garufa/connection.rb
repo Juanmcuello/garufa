@@ -12,7 +12,7 @@ module Garufa
     def initialize(socket, logger)
       @socket = socket
       @logger = logger
-      @socket_id = SecureRandom.uuid
+      @socket_id = build_socket_id
       @subscriptions = {}
     end
 
@@ -135,6 +135,11 @@ module Garufa
         socket_id: subscription.socket_id
       }
       Subscriptions.notify [subscription.channel], "pusher_internal:#{event}", options
+    end
+
+    def build_socket_id
+      # Follow the pusher socket id format, i.e: ^\d+\.\d+$
+      [SecureRandom.random_number(10 ** 6), SecureRandom.random_number(10 ** 6)].join('.')
     end
   end
 end
