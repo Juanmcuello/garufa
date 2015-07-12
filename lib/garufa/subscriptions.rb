@@ -17,7 +17,7 @@ module Garufa
     def remove(subscription)
       channel = subscription.channel
       subscriptions[channel].delete subscription
-      subscriptions.delete(channel) if channel_size(channel) == 0
+      subscriptions.delete(channel) if channel_size(channel).zero?
     end
 
     def notify(channels, event, options = {})
@@ -27,7 +27,7 @@ module Garufa
     end
 
     def notify_channel(channel, event, options)
-      return if channel_size(channel) == 0
+      return if channel_size(channel).zero?
 
       subscriptions[channel].each do |sub|
         # Skip notifying if the same socket_id is provided
@@ -46,34 +46,7 @@ module Garufa
     end
 
     def channel_size(channel)
-      subs = subscriptions[channel]
-      subs ? subs.size : 0
-    end
-
-    def presence_stats(channel)
-      return unless channel.start_with?('presence-')
-
-      data = { ids: [], hash: {} }
-
-      (subscriptions[channel] || []).each do |sub|
-
-        channel_data = JSON.parse(sub.channel_data)
-        id, info = channel_data.values_at('user_id', 'user_info')
-
-        next if data[:ids].include? id
-
-        data[:ids] << id
-        data[:hash][id] = info
-      end
-
-      data.merge(count: data[:ids].count)
-    end
-
-    def channel_stats(channel)
-      {
-        size: channel_size(channel),
-        presence: presence_stats(channel)
-      }
+      (subscriptions[channel] || []).size
     end
 
     private

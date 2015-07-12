@@ -2,7 +2,9 @@ require_relative 'helper'
 require 'logger'
 
 module Garufa
+
   describe Connection do
+    include Garufa::Test::ConnectionHelpers
 
     before do
       @socket = MiniTest::Mock.new
@@ -48,7 +50,7 @@ module Garufa
 
           let(:channel) { 'private-ch1' }
           let(:app_key) { Config[:app_key] }
-          let(:signature) { sign(@connection.socket_id, channel) }
+          let(:signature) { sign_string(@connection.socket_id, channel) }
           let(:data) { { event: 'pusher:subscribe', data: { channel: channel, auth: "#{app_key}:#{signature}" } } }
 
           it 'should response with subscription_succeeded' do

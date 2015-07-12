@@ -1,10 +1,10 @@
-module Garufa
-  module API
-    module BodyReader
-      def read_body
-        body = req.body.read; req.body.rewind
-        body
-      end
+module BodyReader
+  module InstanceMethods
+    def read_body
+      body = request.body.read; request.body.rewind
+      body
     end
   end
 end
+
+Roda.plugin BodyReader

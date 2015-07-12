@@ -5,26 +5,24 @@ require 'garufa/message'
 
 module Garufa
   module API
-    module EventHandler
-      def handle_events(body, channel = nil, params = {})
+    class EventHandler
 
-        params.merge!(channels: [channel]) if channel
+      def handle(body)
+        notify JSON.parse(body)
+      end
 
-        body_params = JSON.parse(body)
+      def handle_legacy(body, channel, params)
+        notify params.merge(channels: [channel], data: JSON.parse(body))
+      end
 
-        # Some old api clients send channel and event in the url, while only data is
-        # in the body. New clients send everything in the body. We have to check where
-        # data is coming in to build the final params.
-        params.merge!(body_params['data'] ? body_params : { data: body_params })
+      private
 
+      def notify(params)
         message = Garufa::Message.new(params)
         options = { data: message.data, socket_id: message.socket_id }
 
-        # Process event deferred in order to response immediately.
+        # Notify event deferred in order to response immediately.
         EM.defer { Garufa::Subscriptions.notify message.channels, message.name, options }
-
-      rescue JSON::ParserError => e
-        env.logger.error e.inspect
       end
     end
   end
