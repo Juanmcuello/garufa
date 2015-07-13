@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "goliath", "1.0.4"
   s.add_dependency "faye-websocket", "0.7.4"
+  s.add_dependency "websocket-driver", "0.3.5"
   s.add_dependency "cuba", "3.3.0"
   s.add_dependency "signature", "0.1.7"
   s.add_dependency "tilt", "2.0.1"
