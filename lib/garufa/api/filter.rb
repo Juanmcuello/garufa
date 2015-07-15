@@ -1,9 +1,9 @@
 module Filter
   module InstanceMethods
-    def filter(params)
+    def filter
       {
-        info: params['info'].to_s.split(/\s*,\s*/),
-        prefix: params['filter_by_prefix']
+        info: request.params['info'].to_s.split(/\s*,\s*/),
+        prefix: request.params['filter_by_prefix']
       }
     end
   end

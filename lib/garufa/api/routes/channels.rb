@@ -9,12 +9,12 @@ module Garufa
 
             # GET channels
             r.is do
-              render 'channels', locals: { stats: stats.all_channels, filter: filter(request.params) }
+              render 'channels', locals: { stats: stats.all_channels, filter: filter }
             end
 
             # GET channels/presence-channel
             r.is "presence-:channel" do |channel|
-              render 'presence', locals: { stats: stats.single_channel(channel), filter: filter(request.params) }
+              render 'presence', locals: { stats: stats.single_channel(channel), filter: filter }
             end
 
             # GET channels/presence-channel/users
