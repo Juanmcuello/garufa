@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/Juanmcuello/garufa.png?branch=master)](https://travis-ci.org/Juanmcuello/garufa)
 [![Code Climate](https://codeclimate.com/github/Juanmcuello/garufa/badges/gpa.svg)](https://codeclimate.com/github/Juanmcuello/garufa)
 
+![logo](./doc/images/logo.png)
+
 Garufa
 ====
 
