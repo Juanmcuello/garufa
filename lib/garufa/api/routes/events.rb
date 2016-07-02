@@ -6,7 +6,6 @@ module Garufa
           r.is 'events' do
             handler = EventHandler.new
             handler.handle(read_body)
-            response.status = 202
             '{}'
           end
 
