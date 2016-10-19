@@ -35,7 +35,7 @@ module Garufa
       when /^pusher:/
         handle_pusher_event(event, data)
       when /^client-/
-        handle_client_event(event, data)
+        handle_client_event(event, data, message.channel)
       end
     end
 
@@ -69,9 +69,14 @@ module Garufa
       end
     end
 
-    def handle_client_event(event, data)
-      # NOTE: not supported yet
-      error(nil, 'Client events are not supported yet')
+    def handle_client_event(event, data, channel)
+      return unless Config[:client_events_enabled]
+
+      subscription = @subscriptions[channel]
+
+      if subscription && (subscription.private_channel? || subscription.presence_channel?)
+        notify_clients(subscription, event, data)
+      end
     end
 
     def pusher_ping(data)
@@ -127,6 +132,14 @@ module Garufa
       end
 
       send_message Message.subscription_succeeded(channel, data)
+    end
+
+    def notify_clients(subscription, event, data)
+      options = {
+        data: data,
+        socket_id: subscription.socket_id
+      }
+      Subscriptions.notify [subscription.channel], event, options
     end
 
     def notify_member(event, subscription)

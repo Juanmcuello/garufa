@@ -35,6 +35,9 @@ module Garufa
         opts.on(v.first, v.last) { |value| Garufa::Config[k] = value }
       end
 
+      opts.on('--enable-client-events', 'Enable client events (default: false)') {
+        Garufa::Config[:client_events_enabled] = true
+      }
     end
 
     def response(env)
