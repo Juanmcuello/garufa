@@ -64,7 +64,7 @@ module Garufa
           end
         end
 
-        it 'should response 202 status code' do
+        it 'should response 200 status code' do
           API::EventHandler.stub :new, handler do
             signed_post uri
             last_response.status.must_equal 200
