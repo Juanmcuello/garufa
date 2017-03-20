@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency "roda", "2.4.0"
   s.add_dependency "signature", "0.1.7"
   s.add_dependency "tilt", "2.0.1"
-  s.add_dependency "yajl-ruby", "1.2.1"
+  s.add_dependency "yajl-ruby", "1.3.0"
   s.add_development_dependency "rack-test", "0.6.3"
   s.add_development_dependency "rake", "10.3.2"
   s.add_development_dependency "minitest", "5.4.0"
