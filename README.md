@@ -18,12 +18,12 @@ and inspired by [Slanger][slanger], another server compatible with Pusher.
 Documentation
 -------------
 
-* [Installation and usage] (/doc/install.md)
-* [SSL Support] (/doc/ssl.md)
-* [Deploy to Heroku] (/doc/heroku.md)
-* [Using Nginx as reverse proxy] (/doc/nginx.md)
-* [Cheking number of current connections] (/doc/connections.md)
-* [Testing and contributing] (/doc/testing.md)
+* [Installation and usage](/doc/install.md)
+* [SSL Support](/doc/ssl.md)
+* [Deploy to Heroku](/doc/heroku.md)
+* [Using Nginx as reverse proxy](/doc/nginx.md)
+* [Cheking number of current connections](/doc/connections.md)
+* [Testing and contributing](/doc/testing.md)
 
 Pusher
 ------
