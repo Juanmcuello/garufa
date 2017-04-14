@@ -21,6 +21,10 @@ module Garufa
       require_relative 'routes/events'
 
       route do |r|
+        r.on 'healthz', method: [:head, :get] do
+          response.status = 204
+        end
+
         r.on 'apps/:app_id' do |app_id|
 
           authenticate(app_id)
