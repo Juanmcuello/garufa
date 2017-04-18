@@ -22,8 +22,9 @@ Documentation
 * [SSL Support](/doc/ssl.md)
 * [Deploy to Heroku](/doc/heroku.md)
 * [Using Nginx as reverse proxy](/doc/nginx.md)
-* [Cheking number of current connections](/doc/connections.md)
+* [Checking number of current connections](/doc/connections.md)
 * [Testing and contributing](/doc/testing.md)
+* [Health endpoint](/doc/health.md)
 
 Pusher
 ------
@@ -31,6 +32,6 @@ Pusher
 [Pusher][pusher] is a great service, very well documented and with excellent
 support. Consider using it on production.
 
-[pusher]: http://pusher.com
+[pusher]: https://pusher.com
 [goliath]: https://github.com/postrank-labs/goliath/
 [slanger]: https://github.com/stevegraham/slanger
