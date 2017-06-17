@@ -1,39 +1,42 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'garufa/version'
 
-Gem::Specification.new do |s|
-  s.name        = "garufa"
-  s.version     = Garufa::VERSION
-  s.summary     = "Websocket server compatible with Pusher."
-  s.description = "Garufa is a websocket server compatible with the Pusher protocol."
-  s.authors     = ["Juan Manuel Cuello"]
-  s.email       = ["juanmacuello@gmail.com"]
-  s.homepage    = "http://github.com/Juanmcuello/garufa"
-  s.bindir      = "bin"
-  s.executables << "garufa"
-  s.required_ruby_version = ">=1.9"
+spec = Gem::Specification.new
 
-  s.files = Dir[
-    "LICENSE",
-    "README.md",
-    "Rakefile",
-    "lib/**/*.rb",
-    "lib/**/*.yajl",
-    "bin/*",
-    "*.gemspec",
-    "test/*.*"
-  ]
+spec.name        = 'garufa'
+spec.version     = Garufa::VERSION
+spec.summary     = 'Websocket server compatible with Pusher.'
+spec.description = 'A websocket server compatible with the Pusher protocol.'
+spec.authors     = ['Juan Manuel Cuello']
+spec.email       = ['juanmacuello@gmail.com']
+spec.homepage    = 'https://github.com/Juanmcuello/garufa'
+spec.bindir      = 'bin'
+spec.executables << 'garufa'
+spec.required_ruby_version = '>=1.9'
 
-  s.add_dependency "goliath", "1.0.4"
-  s.add_dependency "faye-websocket", "0.7.4"
-  s.add_dependency "websocket-driver", "0.3.5"
-  s.add_dependency "roda", "2.4.0"
-  s.add_dependency "signature", "0.1.7"
-  s.add_dependency "tilt", "2.0.1"
-  s.add_dependency "yajl-ruby", "1.3.0"
-  s.add_development_dependency "rack-test", "0.6.3"
-  s.add_development_dependency "rake", "10.3.2"
-  s.add_development_dependency "minitest", "5.4.0"
-end
+spec.files = Dir[
+  'LICENSE',
+  'README.md',
+  'Rakefile',
+  'lib/**/*.rb',
+  'lib/**/*.yajl',
+  'bin/*',
+  '*.gemspec',
+  'test/*.*'
+]
+
+spec.add_dependency 'goliath', '1.0.5'
+spec.add_dependency 'faye-websocket', '0.7.4'
+spec.add_dependency 'websocket-driver', '0.3.5'
+spec.add_dependency 'roda', '2.4.0'
+spec.add_dependency 'signature', '0.1.7'
+spec.add_dependency 'tilt', '2.0.1'
+spec.add_dependency 'yajl-ruby', '1.3.0'
+spec.add_development_dependency 'rack-test', '0.6.3'
+spec.add_development_dependency 'rake', '10.3.2'
+spec.add_development_dependency 'minitest', '5.4.0'
+spec
