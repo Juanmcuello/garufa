@@ -15,6 +15,7 @@ spec.authors     = ['Juan Manuel Cuello']
 spec.email       = ['juanmacuello@gmail.com']
 spec.homepage    = 'https://github.com/Juanmcuello/garufa'
 spec.bindir      = 'bin'
+spec.license     = 'MIT'
 spec.executables << 'garufa'
 spec.required_ruby_version = '>=1.9'
 
