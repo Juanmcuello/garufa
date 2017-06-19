@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'garufa/config'
 require 'garufa/subscriptions'
 
 module Garufa
   class Subscription
-
     attr_reader :error
 
     def initialize(data, connection)
-      @data, @connection = data, connection
+      @data = data
+      @connection = connection
     end
 
     def subscribe
@@ -81,7 +83,12 @@ module Garufa
     end
 
     def valid_signature?
-      string_to_sign = [@connection.socket_id, channel, channel_data].compact.join(':')
+      string_to_sign = [
+        @connection.socket_id,
+        channel,
+        channel_data
+      ].compact.join(':')
+
       token(string_to_sign) == signature
     end
 
@@ -103,6 +110,12 @@ module Garufa
     end
   end
 
-  class SubscriptionError < Struct.new(:code, :message)
+  class SubscriptionError
+    attr_reader :code, :message
+
+    def initialize(code, message)
+      @code = code
+      @message = message
+    end
   end
 end
