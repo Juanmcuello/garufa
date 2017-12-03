@@ -33,7 +33,7 @@ spec.files = Dir[
 spec.add_dependency 'goliath', '1.0.5'
 spec.add_dependency 'faye-websocket', '0.7.4'
 spec.add_dependency 'websocket-driver', '0.3.5'
-spec.add_dependency 'roda', '2.4.0'
+spec.add_dependency 'roda', '3.2.0'
 spec.add_dependency 'signature', '0.1.7'
 spec.add_dependency 'tilt', '2.0.1'
 spec.add_dependency 'yajl-ruby', '1.3.0'

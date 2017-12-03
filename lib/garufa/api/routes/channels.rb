@@ -23,13 +23,14 @@ module Garufa
             end
 
             # GET channels/non-presence-channel
-            r.is ":channel" do |channel|
+            r.is String do |channel|
               render 'non_presence', locals: { stats: stats.single_channel(channel) }
             end
 
             # GET channels/non-presence-channel/users
-            r.is ":channel/users" do |channel|
+            r.is String, "users" do |channel|
               response.status = 400
+              nil
             end
           end
         end

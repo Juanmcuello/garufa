@@ -25,8 +25,7 @@ module Garufa
           response.status = 204
         end
 
-        r.on 'apps/:app_id' do |app_id|
-
+        r.on 'apps', String do |app_id|
           authenticate(app_id)
 
           r.get do
