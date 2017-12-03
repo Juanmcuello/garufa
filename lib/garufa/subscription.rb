@@ -10,6 +10,7 @@ module Garufa
     def initialize(data, connection)
       @data = data
       @connection = connection
+      @error = nil
     end
 
     def subscribe
