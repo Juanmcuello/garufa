@@ -14,7 +14,7 @@ module Garufa
 
       @attributes.each do |name, value|
         instance_variable_set("@#{name}", value)
-        self.class.send(:attr_reader, name)
+        define_singleton_method(name.to_sym) { value }
       end
     end
 
