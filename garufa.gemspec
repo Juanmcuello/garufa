@@ -17,7 +17,7 @@ spec.homepage    = 'https://github.com/Juanmcuello/garufa'
 spec.bindir      = 'bin'
 spec.license     = 'MIT'
 spec.executables << 'garufa'
-spec.required_ruby_version = '>=1.9'
+spec.required_ruby_version = '>=2.2.2'
 
 spec.files = Dir[
   'LICENSE',
