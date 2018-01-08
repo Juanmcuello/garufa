@@ -18,7 +18,7 @@ module Garufa
             end
 
             # GET channels/presence-channel/users
-            r.is /(presence-.+)\/users/ do |channel|
+            r.is %r{(presence-.+)/users} do |channel|
               render 'presence_users', locals: { stats: stats.single_channel(channel) }
             end
 
