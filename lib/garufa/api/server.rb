@@ -23,6 +23,7 @@ module Garufa
       route do |r|
         r.on 'healthz', method: [:head, :get] do
           response.status = 204
+          nil
         end
 
         r.on 'apps', String do |app_id|
