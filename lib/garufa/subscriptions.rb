@@ -1,5 +1,6 @@
 require 'set'
 require 'garufa/message'
+require 'garufa/api/stats'
 
 module Garufa
   module Subscriptions
@@ -53,6 +54,11 @@ module Garufa
 
     def channel_size(channel)
       (subscriptions[channel] || []).size
+    end
+
+    def channel_stats(channel)
+      stats = API::Stats.new(subscriptions)
+      stats.single_channel(channel)
     end
 
     private
