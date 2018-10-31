@@ -18,11 +18,11 @@ module Garufa
         end
       end
 
-      private
-
       def channel_size(channel)
         (subscriptions[channel] || []).size
       end
+
+      private
 
       def presence(channel)
         return unless channel.start_with?('presence-')

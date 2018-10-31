@@ -12,6 +12,10 @@ module Garufa
       subscriptions
     end
 
+    def stats
+      @stats ||= API::Stats.new(subscriptions)
+    end
+
     def add(subscription)
       subs = subscriptions[subscription.channel] ||= Set.new
       @semaphore.synchronize { subs.add subscription }
@@ -53,11 +57,10 @@ module Garufa
     end
 
     def channel_size(channel)
-      (subscriptions[channel] || []).size
+      stats.channel_size(channel)
     end
 
     def channel_stats(channel)
-      stats = API::Stats.new(subscriptions)
       stats.single_channel(channel)
     end
 
