@@ -33,7 +33,7 @@ spec.files = Dir[
 spec.add_dependency 'goliath', '1.0.6'
 spec.add_dependency 'faye-websocket', '0.10.7'
 spec.add_dependency 'websocket-driver', '0.7.0'
-spec.add_dependency 'rack', '1.6.10'
+spec.add_dependency 'rack', '1.6.11'
 spec.add_dependency 'roda', '3.2.0'
 spec.add_dependency 'signature', '0.1.8'
 spec.add_dependency 'tilt', '2.0.8'
