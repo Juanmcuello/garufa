@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Juanmcuello/garufa.png?branch=master)](https://travis-ci.org/Juanmcuello/garufa)
 [![Code Climate](https://codeclimate.com/github/Juanmcuello/garufa/badges/gpa.svg)](https://codeclimate.com/github/Juanmcuello/garufa)
 
-![logo](./doc/images/logo.png)
+![logo](doc/images/logo.png)
 
 Garufa
 ====
@@ -18,13 +18,13 @@ and inspired by [Slanger][slanger], another server compatible with Pusher.
 Documentation
 -------------
 
-* [Installation and usage](/doc/install.md)
-* [SSL Support](/doc/ssl.md)
-* [Deploy to Heroku](/doc/heroku.md)
-* [Using Nginx as reverse proxy](/doc/nginx.md)
-* [Checking number of current connections](/doc/connections.md)
-* [Testing and contributing](/doc/testing.md)
-* [Health endpoint](/doc/health.md)
+* [Installation and usage](doc/install.md)
+* [SSL Support](doc/ssl.md)
+* [Deploy to Heroku](doc/heroku.md)
+* [Using Nginx as reverse proxy](doc/nginx.md)
+* [Checking number of current connections](doc/connections.md)
+* [Testing and contributing](doc/testing.md)
+* [Health endpoint](doc/health.md)
 
 Pusher
 ------
