@@ -1,5 +1,11 @@
-FROM ruby:2.5
-RUN useradd -r garufa -u 751 && gem install garufa
+FROM ruby:2.5-slim
+RUN useradd -r garufa -u 751 \
+ && apt-get update \
+ && apt-get install -y build-essential \
+ && gem install garufa \
+ && apt-get purge -y --auto-remove build-essential \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/
 USER garufa:garufa
 EXPOSE ${port:-8000}
 ENTRYPOINT \
