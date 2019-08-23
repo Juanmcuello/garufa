@@ -1,0 +1,5 @@
+.dockerignore
+.git*
+.travis.yml
+Dockerfile
+test/
