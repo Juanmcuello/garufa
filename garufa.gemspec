@@ -39,6 +39,6 @@ spec.add_dependency 'signature', '0.1.8'
 spec.add_dependency 'tilt', '2.0.8'
 spec.add_dependency 'yajl-ruby', '1.3.1'
 spec.add_development_dependency 'rack-test', '0.8.2'
-spec.add_development_dependency 'rake', '12.3.0'
+spec.add_development_dependency 'rake', '12.3.3'
 spec.add_development_dependency 'minitest', '5.10.3'
 spec
